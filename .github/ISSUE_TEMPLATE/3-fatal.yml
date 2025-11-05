@@ -1,0 +1,56 @@
+name: Fatal Bug Report
+description: File a bug report.
+title: "[Fatal]: "
+labels: ["fatal"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for taking the time to fill out this bug report!
+  - type: textarea
+    id: what-happened
+    attributes:
+      label: What happened?
+      description: Also tell us, what did you expect to happen?
+      placeholder: Tell us what you see!
+      value: "Something bad happened!"
+    validations:
+      required: true
+  - type: dropdown
+    id: specification
+    attributes:
+      label: Specification Version
+      description: What version of Vibrant were you running?
+      options:
+        - 0
+      default: 0
+    validations:
+      required: true
+  - type: dropdown
+    id: version
+    attributes:
+      label: Implementation Version
+      description: What version of compiler/std were you running?
+      options:
+        - 0
+      default: 0
+    validations:
+      required: true
+  - type: dropdown
+    id: os
+    attributes:
+      label: What Operating Systems are you seeing the problem on?
+      multiple: true
+      options: 
+        - Linux
+        - MacOS
+        - Windows
+        - Other(s)
+    validations:
+      required: true
+  - type: textarea
+    id: logs
+    attributes:
+      label: Relevant log output
+      description: Please copy and paste any relevant log output. This will be automatically formatted into code, so no need for backticks.
+      render: shell

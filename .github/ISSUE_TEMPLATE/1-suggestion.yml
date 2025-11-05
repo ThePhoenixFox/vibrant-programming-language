@@ -1,0 +1,30 @@
+name: Feature Suggestion
+description: Suggestions for future specification or implementation.
+title: "[Feature]: "
+labels: ["enhancement "]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for suggesting future features!
+  - type: textarea
+    id: feature
+    attributes:
+      label: What is the feature?
+      description: Be ready to provide a lot of thought into your feature.
+      placeholder: Tell us what you see!
+      value: "Addition for integers."
+    validations:
+      required: true
+  - type: dropdown
+    id: type
+    attributes:
+      label: Feature
+      description: What type of feature are you suggesting?
+      options:
+        - Specification
+        - Implementation
+        - Both
+      default: 1
+    validations:
+      required: true
