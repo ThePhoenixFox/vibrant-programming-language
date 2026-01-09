@@ -4,10 +4,91 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Vibrant Programming Language</title>
+    <meta name="description" content="Vibrant — a custom programming language" />
+    <link rel="stylesheet" href="style.css">
+    <script src="interactive.js"></script>
 </head>
 <body>
-    <h1>Welcome to the Vibrant Programming Language webpage</h1>
-    <p>Hold on, we are still working on making this page look wonderful.</p>
-    <p>You can visit the Github, <a href="https://github.com/ThePhoenixFox/vibrant-programming-language" target="_blank">here</a>!</p>
+    <!-- Top banner: logo + simple navigation -->
+    <header class="banner" role="banner">
+        <div class="brand">
+            <div>
+                <a href="./index.html">
+                    <img src="assets/images/logo.png" alt="Vibrant Logo" class="logo" >
+                </a>
+            </div>
+            <div>
+                <b class="lang-name">Vibrant</b>
+                <p class="lang-capt">Programming Language</p>
+            </div>
+        </div>
+        <div class="nav">
+            <a href="index.html">Home</a>
+            <a href="specification/index.html">Specification</a>
+            <a href="standard/index.html">Standard</a>
+            <a href="guide/index.html">Tutorials</a>
+        </div>
+    </header>
+
+    <!-- Main content -->
+    <main>
+        <h1>What is the Vibrant Programming Language</h1>
+        <p>
+            Vibrant is a programming language that was designed from the ground up until code generation.
+            It uses many external tutorials for inspiration and guidance.
+            You can see the full list of the resources in the <a href="https://github.com/ThePhoenixFox/vibrant-programming-language/blob/main/README.md">README.md</a>.
+        </p>
+        <h1>Goals</h1>
+        <p>
+            The <b>main</b> goal of Vibrant is to be able to implement all of the features listed below.
+            The benefits of this goal is learning more about how programming languages work under the hood.
+            The project is designed to be able to learn how to implement a scanner, parser, semantic analyzer, and code generator (through LLVM).
+            The <b>secondary</b> goal of Vibrant is to be able to create a programming language that is desired by own personal preferences.
+            The has the benefits of being able to understand what feature are useful and how the standard library should be designed.
+        </p>
+        <h1>Features</h1>
+        <div class="features">
+            <div class="slide fade">
+                <div class="slide-number">1/3</div>
+                <div class="slide-title">TYPING</div>
+                <p class="slide-content">
+                    Vibrant is a STRONGLY and STATICALLY typed programming language.
+                    Vibrant provides many built-in types, and also allows users to define their own custom types.
+                    Vibrant has many built-in utility functions to convert between types.
+                    Vibrant is safe by default with its references and is fast when required with pointer types to manage variables in memory.
+                    Vibrant is immutable by default, reducing programming errors.
+                    Vibrant supports first class functions and type inferences.
+                </p>
+            </div>
+            <div class="slide fade">
+                <div class="slide-number">2/3</div>
+                <div class="slide-title">PARADIGM</div>
+                <p class="slide-content">
+                    Vibrant is a imperative programming language at heart, with its statements and control flow.
+                    Vibrant however supports functional programming with first class functions. Vibrant currently does not support closures.
+                    Vibrant also supports object-oriented programming with its custom types. Vibrant currently does not specify standards for construction, destruction, or inhertance.
+                    Vibrant supports procedural programming with its functions and modularity.
+                </p>
+            </div>
+            <div class="slide fade">
+                <div class="slide-number">3/3</div>
+                <div class="slide-title">MODULES</div>
+                <p class="slide-content">
+                    Vibrant provides a built-in modules system for code organization and the standard library.
+                    Vibrant modules can be imported from local files.
+                    Vibrant modules can export functions, types, constants, and variables.
+                    Vibrant also support preprocessor statements for including/excluding code. 
+                    Vibrant preprocessor statements are scoped and do not leak into module outside of command-line arguments. 
+                </p>
+            </div>
+            <a class="prev" onclick="slideBackward(this)">&#10094;</a>
+            <a class="next" onclick="slideForward(this)">&#10095;</a>
+        </div>
+    </main>
+
+    <!-- Footer: small site info and links -->
+    <footer class="footer" role="contentinfo">
+        <p>&copy; 2025 Carson F. Becker &middot; <a href="https://github.com/ThePhoenixFox/vibrant-programming-language" target="_blank" rel="noopener noreferrer">GitHub</a></p>
+    </footer>
 </body>
 </html>

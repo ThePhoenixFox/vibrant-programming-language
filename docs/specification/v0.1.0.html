@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vibrant Programming Language</title>
+    <meta name="description" content="Vibrant — a custom programming language" />
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Top banner: logo + simple navigation -->
+    <header class="banner" role="banner">
+        <div class="brand">
+            <div>
+                <a href="./index.html">
+                    <img src="assets/images/logo.png" alt="Vibrant Logo" class="logo" >
+                </a>
+            </div>
+            <div>
+                <b class="lang-name">Vibrant</b>
+                <p class="lang-capt">Programming Language</p>
+            </div>
+        </div>
+        <div class="nav">
+            <a href="../index.html">Home</a>
+            <a href="../specification/index.html">Specification</a>
+            <a href="../standard/index.html">Standard</a>
+            <a href="../guide/index.html">Tutorials</a>
+        </div>
+    </header>
+
+    <!-- Main content -->
+    <main id="main-page">
+        <h1>v0.1.0 Changelog</h1>
+        <h2>Keywords</h2>
+        <div>
+            <div class="additions">
+
+                <div class="section-title">Conditional Logic</div>
+                <code>if</code><span>branch runs if expression is true</span><br>
+                <code>elif</code><span>branch runs if expression is true and previous branch was false</span><br>
+                <code>else</code><span>branch runs if all previous branches were false</span><br>
+                <code>while</code><span>branch runs until condition expression fails</span><br>
+                <code>for</code><span>subset of while with expression that run each loop</span><br>
+                <code>match</code><span>a single branch runs if expression matches condition</span><br>
+                <div class="section-title">Callable Commands</div>
+                <code>fun</code><span>function</span><br>
+                <code>mtd</code><span>method, a function with self</span><br>
+                <code>return</code><span>returns expression to caller</span><br>
+                <div class="section-title">Unresolved Symbols</div>
+                <code>extern</code><span>specifies symbol outside of vibrant script</span><br>
+                <code>cdelc</code><span>calling convention</span><br>
+                <code>stdcall</code><span>calling convention</span><br>
+            </div>
+            <div class="deprecation">
+                <span>No keywords were deprecated.</span>
+            </div>
+        </div>
+        <h2>Types</h2>
+        <div>
+            <div class="addition">
+                <div class="section-title">Primitive Types</div>
+                <div class="section-title minor">Storage Types</div>
+                <code>bool</code><span>type storing truthy and falsy values</span><br>
+                <code>byte</code><span>type storing explictly 8 bits</span><br>
+                <code>word</code><span>type storing explictly 16 bits</span><br>
+                <code>dword</code><span>type storing explictly 32 bits</span><br>
+                <code>qword</code><span>type storing explictly 64 bits</span><br>
+                <code>oword</code><span>type storing explictly 128 bits</span><br>
+                <code>isize</code><span>type storing explictly the pointer size as a signed integer</span><br>
+                <code>usize</code><span>type storing explictly the pointer size as a unsigned integer</span><br>
+                <div class="section-title minor">Integer</div>
+                <code>i8</code><span>type storing 8 bits as a signed integer</span><br>
+                <code>i16</code><span>type storing 16 bits as a signed integer</span><br>
+                <code>i32</code><span>type storing 32 bits as a signed integer</span><br>
+                <code>i64</code><span>type storing 64 bits as a signed integer</span><br>
+                <code>i128</code><span>type storing 128 bits as a signed integer</span><br>
+                <code>u8</code><span>type storing 8 bits as a unsigned integer</span><br>
+                <code>u16</code><span>type storing 16 bits as a unsigned integer</span><br>
+                <code>u32</code><span>type storing 32 bits as a unsigned integer</span><br>
+                <code>u64</code><span>type storing 64 bits as a unsigned integer</span><br>
+                <code>u128</code><span>type storing 128 bits as a unsigned integer</span><br>
+                <div class="section-title minor">Floating</div>
+                <code>f16</code><span>type storing binary16 under IEEE 754</span><br>
+                <code>f32</code><span>type storing binary32 under IEEE 754</span><br>
+                <code>f64</code><span>type storing binary64 under IEEE 754</span><br>
+                <code>f128</code><span>type storing binary128 under IEEE 754</span><br>
+                <code>d32</code><span>type storing deciminal32 under IEEE 754</span><br>
+                <code>d64</code><span>type storing deciminal64 under IEEE 754</span><br>
+                <code>d128</code><span>type storing deciminal128 under IEEE 754</span><br>
+                <div class="section-title minor">Character</div>
+                <code>char</code><span>type storing a single ascii character, size of 8 bits</span><br>
+                <div class="section-title minor">Special</div>
+                <code>unit</code><span>type storing absence of value</span><br>
+                <div class="section-title">Derived Types</div>
+                <div class="keyword-block"><p class="keyword-title">array</p><code>[T; n]</code></div><span>type storing a type in continuous memory</span><br>
+                <div class="keyword-block"><p class="keyword-title">reference</p><code>&T</code></div><span>type that provides a safe alias to memory of the type</span><br>
+                <div class="keyword-block"><p class="keyword-title">pointer</p><code>*T</code></div><span>type that provides lowlevel alias to memory and surrounding memory of the type</span><br>
+                <div class="keyword-block"><p class="keyword-title">function</p><code>fun(T,...) -> R</code></div><span>type storing a return type and multiple parameter types</span><br>
+                <div class="section-title">User-Defined Types</div>
+                <div class="keyword-block"><p class="keyword-title">struct</p><code>struct T { N, ... }</code></div><span>type storing multiple type in consistent manner</span><br>
+                <div class="keyword-block"><p class="keyword-title">enum</p><code>enum T { name:N, ... }</code></div><span>type storing multiple type in a consistent manner with only one version accessable</span><br>
+                <code>Self</code><span>type alias to parent struct</span><br>
+                <div class="section-title">Types Modifiers</div>
+                <code>mut</code><span>type is modifiable after assignment </span><br>
+                <code>volatile</code><span>type is explicitly storing in memory</span><br>
+                <code>static</code><span>type lifetime is as long as the program</span><br>
+            </div>
+            <div class="deprecation">
+                <br><span>No types were deprecated.</span>
+            </div>
+        </div>
+        <h2>Statements</h2>
+        <div>
+            <div class="addition">
+                
+            </div>
+            <div class="deprecation">
+                <span>No statements were deprecated.</span>
+            </div>
+        </div>
+        <h2>Expressions</h2>
+        <div>
+            <div class="addition">
+
+            </div>
+            <div class="deprecation">
+                <span>No expressions were deprecated.</span>
+            </div>
+        </div>
+        <h2>Standard Library</h2>
+        <div>
+            <div class="addition">
+
+            </div>
+            <div class="deprecation">
+                <span>No libraries were deprecated.</span>
+            </div>
+        </div>
+        <h1>Grammer</h1>
+        <pre>
+        <p class="grammer">
+        The following grammer is formated in BNF
+        Meta Identifiers:
+        * := zero or more of ...
+        + := one or more of ...
+        ? := zero or one of ...
+        | := either
+        "..." := literal
+        (...) := grouping
+        \" := escape " into the literal
+        $ := start identifier
+        <hr>
+        $ := program
+        program := definition+
+        definition := assign-stmt | func-stmt | import-stmt | export-stmt | struct-stmt | enum-stmt | interface-stmt
+        struct-definition := assign-stmt | method-stmt | struct-stmt | enum-stmt | interface-stmt
+        statement := assign-stmt | return-stmt | conditional-stmt | struct-stmt | enum-stmt | interface-stmt | loop-stmt | match-stmt | expr-stmt
+        assign-stmt := "let" ident (":" type)? "=" expr ";"
+        func-stmt := "fun" ident ("<" generic-types ">")? "(" parameters ")" "->" type block-stmt
+        method-stmt := init-stmt | destroy-stmt | method-fun-stmt
+        init-stmt := "mtd" ident "(" parameters ")" "->" "@" type block-stmt
+        destroy-stmt := "mtd" "~()" "->" "void" block-stmt
+        method-fun-stmt := "mtd" ident ("<" generic-types ">")? "(" parameters ")" "->" type block-stmt
+        interface-stmt := "interface" ident ("implements" ident)? "{" method-fun-stmt+ "}"
+        return-stmt := "return" expr ";"
+        conditional-stmt := "if" "(" expr ")" block-stmt ("elif" "(" expr ")" block-stmt)* ("else" block-stmt)?
+        import-stmt := "import" ident ";"
+        export-stmt := "export" "{" definition "}"
+        loop-stmt := for-stmt | while-stmt
+        for-stmt := "for" "(" expr ";" expr ";" expr ")" block-stmt
+        while-stmt := "while" "(" expr ")" block-stmt 
+        match-stmt := "match" "(" expr ")" "{" (ident ":" block-stmt)+ "}"
+        block-stmt := "{" statement+ "}"
+        struct-stmt := "struct" ident ("<" generic-types ">")? ("implements" ident)? "{" struct-definition+ "}"
+        enum-stmt := "enum" ident ("<" generic-types ">")? "{" parameters "}"
+        expr-stmt := expr ";"
+
+        generic-types := type ("," type)*
+        parameters := ident ":" type ("," ident ":" type)*
+
+        expr := assign
+        assign := ( ((call "." ident) | chain) assignment-operators conditional) | conditional
+        conditional := term (conditional-operators term)*
+        term := factor (term-operators factor)*
+        factor := shift (factor-operators shift)*
+        shift := binary (shift-operators binary)*
+        binary := logical (binary-operators logical-or)*
+        logical-or := logical-and ("||" logical-and)*
+        logical-and := postfix ("&&" postfix)*
+        postfix := prefix postfix-operators?
+        prefix := prefix-operators? unary 
+        unary := unary-operators? reference
+        reference := reference-operators? index
+        index := call ("[" expr "]")*
+        call := chain ("(" arguments? ")")*
+        arguments := expr ("," expr)*
+        chain := primary ("." ident)*
+        primary := ident | literal | "(" expr ")"
+        assignment-operators := "=" | "+=" | "-=" | "*=" | "%="
+        conditional-operators := "==" | ">" | "<" | ">=" | "<=" | "<=>"
+        unary-operators := "+" | "-" | "!" | "~"
+        prefix-operators := "++" | "--"
+        postfix-operators := "++" | "--"
+        term-operators := "+" | "-" 
+        factor-operators := "*" | "/" | "%"
+        reference-operators := "*" | "&"
+        shift-operators := ">>" | ">>>" | "<<" | "<<<"
+        binary-operators := "&" | "|" | "^"
+
+        type := "mut"? (primitive-type | derived-type | user-defined)
+        primitive-type := "bool" | "byte" | "word" | "dword" | "qword" | "oword" | "isize" | "usize" | "i8" | "u8" | "i16" | "u16" | "f16" | "i32" | "u32" | "f32" | "d32" | "i64" | "u64" | "f64" | "d64" | "i128" | "u128" | "f128" | "d128" | "char" | "void"
+        derived-type := "str" | pointer-type | ref-type | borrow-type | array-type | tuple-type | function-type
+        user-defined := ident
+        refable-type := primitive-type | pointer-type | array-type | tuple-type | function-type | user-defined
+        ref-type := "&" refable-type
+        borrow-type := "&&" refable-type
+        pointer-type := "*" type
+        array-type := "[" type (";" num-literal)? "]"
+        tuple-type := "(" type ("," type)* ")"
+        function-type := "fun" "(" type ("," type)* ")" "->" type
+        
+        literal := bool-literal | string-literal | num-literal
+        bool-literal := "true" | "false"
+        num-literal := int-literal | float-literal
+        int-literal := base-2 | base-10 | base-16
+        base-2 := "0b0" | ("0b1" num-2*)
+        num-2 := "0" | "1"
+        base-10 := "0" | (("1" | "2" | "3" | "4" | "5" | "6" | "7" | "8" | "9") num-10*)
+        num-10 :=  "0" | "1" | "2" | "3" | "4" | "5" | "6" | "7" | "8" | "9"
+        base-16 := "0x0" | ("0x" ("1" | "2" | "3" | "4" | "5" | "6" | "7" | "8" | "9" | "a" | "A" | "b" | "B" | "c" | "C" | "d" | "D" | "e" | "E" | "f" | "F") num-16* )
+        num-16 := "0" | "1" | "2" | "3" | "4" | "5" | "6" | "7" | "8" | "9" | "a" | "A" | "b" | "B" | "c" | "C" | "d" | "D" | "e" | "E" | "f" | "F"
+        </p>
+        </pre>
+        <h1>Semantic</h1>
+        <pre>
+        <p>
+        Definitions:
+        ⊢ it prove that
+        Γ type environment
+        ⊤ true
+        ⊥ false
+        → implies that	
+        ¬ not
+        ∧ and
+        ∨ or
+        = is equalivent to
+        ∀ for all
+        ∃ exists
+        ∈ in the set of
+        P(a) property
+        max(n,...) find larger value
+        min(n,...) find smaller value
+        Rules
+        LC(e) lvalue
+        RC(e) rvalue
+
+        KIND(e) ∈ { bool, int, uint, float, decimal, storage }
+
+        --------------- true is a bool literal
+        Γ ⊢ true : bool ∈ RC(e), KIND(bool)
+
+        --------------- false is a bool literal
+        Γ ⊢ false : bool ∈ RC(e), KIND(bool)
+
+        --------------- n is a integer literal
+        Γ ⊢ n : iN ∈ RC(e), KIND(int)
+
+        --------------- n is a unsigned integer literal
+        Γ ⊢ n : uN ∈ RC(e), KIND(uint)
+
+        --------------- f is a floating literal
+        Γ ⊢ f : fN ∈ RC(e), KIND(float)
+
+        --------------- d is a deciminal literal
+        Γ ⊢ d : dN ∈ RC(e), KIND(decimal)
+
+        --------------- c is a character literal
+        Γ ⊢ n : char ∈ RC(e)
+
+        --------------- s is a string literal with N characters
+        Γ ⊢ s : [char; N] ∈ LC(e)
+
+        --------------- b is a storage literal
+        Γ ⊢ b : sN ∈ RC(e), KIND(storage)
+
+        Γ ⊢ n1 : A   Γ ⊢ n2 : B Kind(A)=Kind(B) ∧ ¬(Kind(A) ∈ {bool,storage})
+        ---------------------------------------
+        Γ ⊢ n1 + n2 : max(A,B) ∈ RC(e)
+
+        Γ ⊢ n1 : A   Γ ⊢ n2 : B Kind(A)=Kind(B) ∧ ¬(Kind(A) ∈ {bool,storage})
+        ---------------------------------------
+        Γ ⊢ n1 - n2 : max(A,B) ∈ RC(e)
+
+        Γ ⊢ n1 : A   Γ ⊢ n2 : B Kind(A)=Kind(B) ∧ ¬(Kind(A) ∈ {bool,storage})
+        ---------------------------------------
+        Γ ⊢ n1 * n2 : max(A,B) ∈ RC(e)
+
+        Γ ⊢ n1 : A   Γ ⊢ n2 : B Kind(A)=Kind(B) ∧ ¬(Kind(A) ∈ {bool,storage})
+        ---------------------------------------
+        Γ ⊢ n1 / n2 : max(A,B) ∈ RC(e)
+
+        Γ ⊢ n1 : A   Γ ⊢ n2 : B Kind(A)=Kind(B) ∈ {int,uint}
+        -----------------------------------------------------
+        Γ ⊢ n1 % n2 : A ∈ RC(e)
+
+        Γ ⊢ n1 : sN   Γ ⊢ n2 : sN
+        --------------------------
+        Γ ⊢ n1 & n2 : sN ∈ RC(e)
+
+        Γ ⊢ n1 : sN   Γ ⊢ n2 : sN
+        --------------------------
+        Γ ⊢ n1 | n2 : sN ∈ RC(e)
+
+        Γ ⊢ n1 : sN
+        --------------------------
+        Γ ⊢ ~n1: sN ∈ RC(e)
+
+        
+        Infer
+
+
+
+        
+        </p>
+        </pre>
+    </main>
+
+    <!-- Footer: small site info and links -->
+    <footer class="footer" role="contentinfo">
+        <p>&copy; 2025 Carson F. Becker &middot; <a href="https://github.com/ThePhoenixFox/vibrant-programming-language" target="_blank" rel="noopener noreferrer">GitHub</a></p>
+    </footer>
+</body>
+</html>

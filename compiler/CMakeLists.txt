@@ -27,6 +27,8 @@ else()
     message(FATAL_ERROR "Unsupported compiler: ${CMAKE_CXX_COMPILER_ID}")
 endif()
 
+set(CMAKE_C_STANDARD 20)
+set(CMAKE_C_STANDARD_REQUIRED ON)
 set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_CXX_EXTENSIONS OFF)
@@ -58,13 +60,22 @@ set_target_properties(VibrantCompiler PROPERTIES
 target_sources(VibrantCompiler
   PRIVATE
     src/main.cpp
+    src/lexer.cpp
+    src/parser.cpp
+    src/analyser.cpp
+    src/code-gen.cpp
+    src/error.cpp
 
   PUBLIC
     FILE_SET HEADERS
     BASE_DIRS
       include
     FILES
-      include/include.hpp
+      include/AST.hpp
+      include/common.hpp
+      include/passes.hpp
+      include/token.hpp
+      include/error.hpp
 )
 
 # Add headers

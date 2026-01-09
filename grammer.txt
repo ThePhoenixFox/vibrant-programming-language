@@ -1,0 +1,107 @@
+Program := TopLevelDefine*
+
+TopLevelDefine := ImportStmt | ExportStmt | TopDefineStmt | TopUndefineStmt | TopUseStmt | StructStmt | ExternStructStmt | EnumStmt | FunStmt | ExternFunStmt | TopVariableStmt | TopPreprocessorStmt
+
+ImportStmt := IMPORT IDENTIFIER (LEFT_BRACE ImportArgs RIGHT_BRACE)? AS (GLOBAL | IDENTIFIER) SEMICOLON
+ImportArgs := ImportArg (COMMA ImportArg)*
+ImportArg := PREPROCESSOR |  IDENTIFIER | (BANG IDENTIFIER) | (IDENTIFIER EQUAL INTEGER)
+
+ExportStmt := EXPORT LEFT_BRACE TopLevelDefine* RIGHT_BRACE
+TopDefineStmt := DEFINE GLOBAL? IDENTIFIER (EQUAL INTEGER)? SEMICOLON
+TopUndefineStmt := UNDEFINE GLOBAL? IDENTIFIER SEMICOLON
+TopUseStmt := USE SCOPED_IDENTIFIER AS (GLOBAL | IDENTIFIER) SEMICOLON
+
+StructStmt := STRUCT IDENTIFIER Generics? LEFT_BRACE StructDefines* RIGHT_BRACE
+ExternStructStmt := EXTERN STRUCT IDENTIFIER SEMICOLON
+Generics := LESS IDENTIFIER (COMMA IDENTIFIER)* GREATER
+StructDefines := Property | Method | FunStmt
+Property := IDENTIFIER COLON NonRefType SEMICOLON
+Method := MTD IDENTIFIER Generics? LEFT_PAREN MethodParameters RIGHT_PAREN (ARROW NonRefType)? LEFT_BRACE ScopeDefine* RIGHT_BRACE
+MethodParameters := IDENTIFIER COLON AMPERSAND (MUT)? SELF (COMMA Parameters)?
+Parameters := IDENTIFIER COLON Type (COMMA IDENTIFIER COLON Type)*
+
+EnumStmt := ENUM IDENTIFIER Generics? LEFT_BRACE Property* RIGHT_BRACE
+
+FunStmt := FUN IDENTIFIER Generics? LEFT_PAREN Parameters RIGHT_PAREN (ARROW NonRefType)? LEFT_BRACE ScopeDefine* RIGHT_BRACE
+ExternFunStmt := EXTERN CallingConvention FUN IDENTIFIER LEFT_PAREN Parameters RIGHT_PAREN (ARROW NonRefType)? SEMICOLON
+CallingConvention := CDECL | STDCALL | THISCALL
+TopVariableStmt := STATIC VariableBinding ((TypeAnnotation Initializer?) | Initializer) SEMICOLON
+VariableStmt := LifetimeDefine VariableBinding TypeAnnotation? Initializer SEMICOLON
+LifetimeDefine := STATIC | LET
+VariableBinding := MUT? IDENTIFIER
+TypeAnnotation := COLON NonRefType
+Initializer := EQUAL Expr
+
+TopPreprocessorStmt := (PREPROCESSOR | (AT LEFT_PAREN PreprocessorExpression RIGHT_PAREN)) LEFT_BRACE TopLevelDefine* RIGHT_BRACE
+PreprocessorExpression := PreLogicalOr
+PreLogicalOr := PreLogicalAnd (DOUBLE_PIPE PreLogicalAnd)*
+PreLogicalAnd := PreBitOr (DOUBLE_AMPERSAND PreBitOr)*
+PreBitOr := PreBitXor (PIPE PreBitXor)*
+PreBitXor := PreBitAnd (CARET PreBitAnd)*
+PreBitAnd := PreEquality (AMPERSAND PreEquality)*
+PreEquality := PreCondition (EqualityOperators PreCondition)*
+PreCondition := PrePrefix (ConditionOperators PrePrefix)*
+PrePrefix := (BANG | TILDE)* PrePrimary
+PrePrimary := PREPROCESSOR | INTEGER | (LEFT_PAREN PreprocessorExpression RIGHT_PAREN)
+
+ScopeDefine := ScopeUseStmt | StructStmt | EnumStmt | ScopeDefineStmt | ScopeUndefineStmt | VariableStmt | ExprStmt | CondStmt | MatchStmt | ForStmt | WhileStmt | ReturnStmt | BlockStmt | ScopePreprocessorStmt
+
+ScopeUseStmt := USE SCOPED_IDENTIFIER AS IDENTIFIER SEMICOLON
+CondStmt := IF LEFT_PAREN Expr RIGHT_PAREN BlockStmt (ELIF LEFT_PAREN Expr RIGHT_PAREN BlockStmt)* (ELSE LEFT_PAREN Expr RIGHT_PAREN BlockStmt)?
+MatchStmt := MATCH LEFT_PAREN Expr RIGHT_PAREN LEFT_BRACE Matching RIGHT_BRACE
+Matching := (Type COLON BlockStmt)+
+ScopeDefineStmt := DEFINE IDENTIFIER (EQUAL INTEGER)? SEMICOLON
+ScopeUndefineStmt := UNDEFINE IDENTIFIER SEMICOLON
+
+ForStmt := FOR LEFT_PAREN Expr SEMICOLON Expr SEMICOLON (Expr) RIGHT_PAREN BlockStmt
+WhileStmt := WHILE LEFT_PAREN Expr RIGHT_PAREN BlockStmt
+ReturnStmt := RETURN Expr SEMICOLON
+ScopePreprocessorStmt := (PREPROCESSOR | (AT LEFT_PAREN PreprocessorExpression RIGHT_PAREN)) LEFT_BRACE ScopeDefine* RIGHT_BRACE
+ExprStmt := Expr SEMICOLON
+
+Expr := Assign
+Assign := Ternary ((EQUAL | PLUS_EQUAL | MINUS_EQUAL | STAR_EQUAL | SLASH_EQUAL) Ternary)*
+Ternary := LogicOr (QUESTION Expr COLON Expr)*
+LogicOr := LogicAnd (DOUBLE_PIPE LogicAnd)*
+LogicAnd := Or (DOUBLE_AMPERSAND Or)*
+Or := Xor (PIPE Xor)*
+Xor := And (CARET And)*
+And := Equality (AND Equality)*
+Equality := Comparision (EqualityOperators Comparision)*
+Comparision := Shift (ConditionOperators Shift)*
+Shift := Term ((SHIFT_LEFT | SHIFT_RIGHT) Term)*
+Term := Factor ((PLUS | MINUS) Factor)*
+Factor := Prefix ((STAR | SLASH | MODULO) Prefix)*
+Prefix := (PLUS_PLUS | MINUS_MINUS | PLUS | MINUS | TILDE | STAR | AMPERSAND | HASH)* Postfix
+Postfix := Primary (PLUS_PLUS | MINUS_MINUS | Call | MemberAccess | Subscript | CompoundLiteral | Cast)*
+Call := GenericResolve? LEFT_PAREN (Expr (COMMA Expr)*)? RIGHT_PAREN
+GenericResolve := DOUBLE_COLON LESS NonRefType (COMMA NonRefType)* GREATER
+MemberAccess := (DOT | ARROW) IDENTIFIER
+Subscript := LEFT_BRACKET Expr RIGHT_BRACKET
+CompoundLiteral := (ArrayLiteral | ArrayDesignator | DesignatedLiteral) AS NonRefType
+ArrayLiteral := LEFT_BRACE (Expr (COMMA Expr)*)? RIGHT_BRACE
+ArrayDesignator := LEFT_BRACE (LEFT_BRACKET Expr RIGHT_BRACKET EQUAL Expr) (COMMA (LEFT_BRACKET Expr RIGHT_BRACKET EQUAL Expr))* RIGHT_BRACE
+DesignatedLiteral := LEFT_BRACE DesignatorList RIGHT_BRACE
+DesignatorList := (DOT IDENTIFIER EQUAL Expr) (COMMA (DOT IDENTIFIER EQUAL Expr))*
+Cast := AS NonRefType
+Primary := IDENTIFIER | SCOPED_IDENTIFIER | STRING | CHARACTER | INTEGER | FLOAT | TRUE | FALSE | (LEFT_PAREN Expr RIGHT_PAREN) | BuiltIn
+
+BuiltIn := Sizeof | Alignof
+Sizeof := SizeofType | SizeofExpr
+SizeofType := SIZEOF DOUBLE_COLON LESS Type GREATER LEFT_PAREN RIGHT_PAREN
+SizeofExpr := SIZEOF LEFT_PAREN Expr RIGHT_PAREN
+Alignof := AlignofType | AlignofExpr
+AlignofType := ALIGNOF DOUBLE_COLON LESS Type GREATER LEFT_PAREN RIGHT_PAREN
+AlignofExpr := ALIGNOF LEFT_PAREN Expr RIGHT_PAREN
+
+BlockStmt := LEFT_BRACE ScopeDefine* RIGHT_BRACE
+Type := PrimaryType | UserType | DerivedType 
+PrimaryType :=VOLATILE? (I8 | I16 | I32 | I64 | I128 | U8 | U16 | U32 | U64 | U128 | F32 | F64 | F128 | D32 | D64 | D128 | UNIT | CHAR | STR | BOOL | BYTE | WORD | DWORD | QWORD | OWORD)
+DerivedType := (VOLATILE? (Array | Pointer)) | Function | Reference
+NonRefType := PrimaryType | UserType | (VOLATILE? (Array | Pointer)) | Function
+UserType := (VOLATILE? (IDENTIFIER | SCOPED_IDENTIFIER) GenericResolve?) | SELF
+Array := LEFT_BRACKET NonRefType (COLON INTEGER)? RIGHT_BRACKET
+Pointer := STAR MUT? NonRefType
+Reference := AMPERSAND MUT? NonRefType
+Function := FUN Generics? LEFT_PAREN ParameterType? RIGHT_PAREN ARROW NonRefType
+ParameterType := Type (COMMA Type)*

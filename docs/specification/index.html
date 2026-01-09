@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vibrant Programming Language</title>
+    <meta name="description" content="Vibrant — a custom programming language" />
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Top banner: logo + simple navigation -->
+    <header class="banner" role="banner">
+        <div class="brand">
+            <div>
+                <a href="./index.html">
+                    <img src="assets/images/logo.png" alt="Vibrant Logo" class="logo" >
+                </a>
+            </div>
+            <div>
+                <b class="lang-name">Vibrant</b>
+                <p class="lang-capt">Programming Language</p>
+            </div>
+        </div>
+        <div class="nav">
+            <a href="../index.html">Home</a>
+            <a href="../specification/index.html">Specification</a>
+            <a href="../standard/index.html">Standard</a>
+            <a href="../guide/index.html">Tutorials</a>
+        </div>
+    </header>
+
+    <!-- Main content -->
+    <main>
+        <h1>What is a Specification</h1>
+        <p>
+            Vibrant makes use of a language specification to define the syntax and semantics of the language.
+            Specifications are important for implementation independence, allowing users to have a script that can run on any compliant Vibrant compiler.
+            Although Vibrant only has one implementation the currently follows the specification closely, which would be the offical Vibrant compiler found <a href="">here</a>.
+        </p>
+        <h2>Keywords</h2>
+        <p>
+            The specification defines keywords that when used in the correct context produce valid Vibrant code.
+            Keywords are reserved words that can not be used as identifiers for variables, functions, types, or constants.
+            Keywords are case-sensitive and must be used exactly as defined in the specification.
+            Keywords are the first thing a specification release defines.
+        </p>
+        <h2>Types</h2>
+        <p>
+            Vibrant provides a variety of built-in types as defined by the specification.
+            Vibrant provides a variety of user-defined types that user can define like structs and enums.
+            All derived and user-defined types rely on the primitive types at the first class level, however can rely on any type beyond this first class level. 
+            Some types are opaque, meaning their internal organization or size is unknown. Opaque types are exclusively used in references and pointers.
+        </p>
+        <h2>Statements</h2>
+        <p>
+            Vibrant programs are a list of statements, this is due to its imperative nature.
+            Vibrant does not support expression control flow, only statement control flow is supported.
+            Vibrant however does support a few functional features due to the lack of expression only computation.
+        </p>
+        <h2>Expressions</h2>
+        <p>
+            Vibrant programs statements are made from expressions.
+            Expression are often the most complex part of a languages grammer.
+            Vibrant expressions are composed of identifiers, operators, grouping, calls, and precedent.
+        </p>
+        <hr>
+        <h1>Specification Releases</h1>
+        <div class="releases">
+            <a href="v0.1.0.html">v0.1.0</a>
+        </div>
+    </main>
+
+    <!-- Footer: small site info and links -->
+    <footer class="footer" role="contentinfo">
+        <p>&copy; 2025 Carson F. Becker &middot; <a href="https://github.com/ThePhoenixFox/vibrant-programming-language" target="_blank" rel="noopener noreferrer">GitHub</a></p>
+    </footer>
+</body>
+</html>
